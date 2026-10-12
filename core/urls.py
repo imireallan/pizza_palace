@@ -15,8 +15,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.http import JsonResponse
 from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
+import json
+from billing.engine import calculate_receipt
+
+@csrf_exempt
+def billing_view(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        receipt = calculate_receipt(data.get("pizzas", []))
+        return JsonResponse({"receipt": receipt})
+    return JsonResponse({"error":"POST required"}, status=405)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/billing/', billing_view, name='billing'),
 ]

@@ -36,6 +36,15 @@ def calculate_tax(subtotal):
     return math.ceil(subtotal * TAX_RATE * 100) / 100
 
 
+def calculate_receipt(pizzas):
+    """Public API aligned with spec: takes pizza descriptions, returns receipt string."""
+    priced = []
+    for p in pizzas:
+        price = calculate_pizza_price(p["size"], p.get("toppings", []))
+        priced.append({"size": p["size"], "toppings": p.get("toppings", []), "price": price})
+    return receipt_text(priced)
+
+
 def receipt_text(order_items):
     lines = []
     subtotal = 0.0
