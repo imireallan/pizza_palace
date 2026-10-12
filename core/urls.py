@@ -25,12 +25,6 @@ from django.middleware.csrf import get_token
 
 @csrf_exempt
 def billing_view(request):
-    if request.method == "OPTIONS":
-        response = JsonResponse({})
-        response["Access-Control-Allow-Origin"] = "*"
-        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
-        response["Access-Control-Allow-Headers"] = "Content-Type"
-        return response
     if request.method == "POST":
         data = json.loads(request.body)
         receipt = calculate_receipt(data.get("pizzas", []))
