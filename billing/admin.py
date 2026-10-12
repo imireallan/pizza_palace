@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, Pizza, Topping, Price, OrderItem
+from .models import Order, Pizza, Topping, OrderItem
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -13,10 +13,6 @@ class PizzaAdmin(admin.ModelAdmin):
 @admin.register(Topping)
 class ToppingAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'basic')
-
-@admin.register(Price)
-class PriceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'size', 'base')
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):

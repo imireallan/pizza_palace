@@ -1,12 +1,7 @@
 from rest_framework import serializers
 import math
 from billing.engine import calculate_receipt, calculate_pizza_price
-from .models import Order, Pizza, Topping, Price, OrderItem
-
-class PriceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Price
-        fields = '__all__'
+from .models import Order, Pizza, Topping, OrderItem
 
 class ToppingSerializer(serializers.ModelSerializer):
     class Meta:
