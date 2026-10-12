@@ -12,6 +12,7 @@ class Price(models.Model):
 
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
+    receipt_text = models.TextField(blank=True, default="")
 
 class Pizza(models.Model):
     order = models.ForeignKey(Order, related_name="pizzas", on_delete=models.CASCADE)

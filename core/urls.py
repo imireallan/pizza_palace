@@ -17,7 +17,7 @@ def billing_view(request):
     if request.method == "POST":
         data = json.loads(request.body)
         receipt = calculate_receipt(data.get("pizzas", []))
-        order = Order.objects.create()
+        order = Order.objects.create(receipt_text=receipt)
         toppings = []
         for p in data.get("pizzas", []):
             pizza = Pizza.objects.create(order=order, size=p.get("size", "Medium"))
@@ -35,8 +35,8 @@ def billing_view(request):
         except Order.DoesNotExist:
             return JsonResponse({"error":"not found"}, status=404)
         pizzas = [{"size": p.size, "toppings": [i.topping.name for i in p.items.all()]} for p in order.pizzas.all()]
-        receipt = calculate_receipt(pizzas)
-        return JsonResponse({"order_id": order.id, "receipt": receipt, "pizzas": pizzas})
+        receipt_text_stored = order.receipt_text or calculate_receipt(pizzas)
+        return JsonResponse({"order_id": order.id, "receipt": receipt_text_stored, "pizzas": pizzas})
     if request.method == "PUT":
         return JsonResponse({"updated": "v2 PUT applied"}, status=200)
     if request.method == "DELETE":
