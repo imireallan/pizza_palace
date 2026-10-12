@@ -27,10 +27,10 @@ cd frontend && npm install && npm run dev  # frontend (localhost:5173)
 - Manual QA verified at each phase (engine, endpoint, UI, styling)
 
 ## Repository
-Feature branch: `feature/billing` (open PR #1 at github.com/imireallan/pizza_palace)
+Branch: `main` (merged from `feature/billing` — PR #1 closed)
 
 ## Requirements covered
 - Size/topping selection, add/remove pizzas before submit
 - Validation (unknown size, unknown topping, at least one pizza)
 - Plain-text receipt (subtotal, 5% TAX rounded up, total)
-- In-memory (no persistence per ADR-0001)
+- In-memory billing (no persistence)
