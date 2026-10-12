@@ -15,6 +15,9 @@ def billing_view(request):
         order_id = request.GET.get("order_id")
         order = Order.objects.get(id=order_id) if order_id else None
         if order:
-            return JsonResponse({"order_id": order.id, "receipt": "reproduced v2 receipt"})
+            pizzas = order.pizzas.all()
+            items = [{"size": p.size, "toppings": [i.topping.name for i in p.items.all()], "price": 0.0} for p in pizzas]
+            receipt = "\n".join([f"{i['size']} - {', '.join(i['toppings']) or 'No toppings'}" for i in items])
+            return JsonResponse({"order_id": order.id, "receipt": receipt, "items": items})
         return JsonResponse({"error": "order_id required"}, status=400)
     return JsonResponse({"error":"method not allowed"}, status=405)
