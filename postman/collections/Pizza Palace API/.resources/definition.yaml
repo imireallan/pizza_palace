@@ -1,0 +1,9 @@
+$kind: collection
+description: CRUD endpoints for Orders, Pizzas, and Toppings in the Pizza Palace application.
+variables:
+  - key: baseUrl
+    value: 'http://localhost:8000'
+  - key: orderId
+    value: '1'
+  - key: pizzaId
+    value: '1'
