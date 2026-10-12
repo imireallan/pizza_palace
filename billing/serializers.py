@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Order, Pizza, Topping, Price
+from .models import Order, Pizza, Topping, Price, OrderItem
 
 class PriceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,3 +21,18 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+
+class OrderCreateSerializer(serializers.ModelSerializer):
+    pizzas = serializers.JSONField(write_only=True)
+    class Meta:
+        model = Order
+        fields = ('id', 'pizzas', 'receipt_text', 'created_at')
+    def create(self, validated_data):
+        pizzas_data = validated_data.pop('pizzas', [])
+        order = Order.objects.create(**validated_data)
+        for p in pizzas_data:
+            pizza = Pizza.objects.create(order=order, size=p.get('size', 'Medium'))
+            for t in p.get('toppings', []):
+                topping_obj, _ = Topping.objects.get_or_create(name=t, defaults={"basic": t in {"Cheese","Pepperoni","Ham","Pineapple"}})
+                OrderItem.objects.create(pizza=pizza, topping=topping_obj)
+        return order
