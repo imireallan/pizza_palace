@@ -1,4 +1,6 @@
 from rest_framework import serializers
+import math
+from billing.engine import calculate_receipt, calculate_pizza_price
 from .models import Order, Pizza, Topping, Price, OrderItem
 
 class PriceSerializer(serializers.ModelSerializer):
@@ -34,7 +36,12 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         fields = ('id', 'pizzas', 'receipt_text', 'created_at')
     def create(self, validated_data):
         pizzas_data = validated_data.pop('pizzas', [])
-        order = Order.objects.create(**validated_data)
+        priced = []
+        for p in pizzas_data:
+            price = calculate_pizza_price(p.get('size', 'Medium'), p.get('toppings', []))
+            priced.append({"size": p.get('size', 'Medium'), "toppings": p.get('toppings', []), "price": price})
+        receipt_text_value = calculate_receipt(priced) if priced else ""
+        order = Order.objects.create(receipt_text=receipt_text_value, **validated_data)
         for p in pizzas_data:
             pizza = Pizza.objects.create(order=order, size=p.get('size', 'Medium'))
             for t in p.get('toppings', []):
