@@ -21,6 +21,11 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['receipt_text'] = instance.receipt_text or ret.get('receipt_text', '')
+        ret['receipt'] = instance.receipt_text or ret.get('receipt', '')
+        return ret
 
 class OrderCreateSerializer(serializers.ModelSerializer):
     pizzas = serializers.JSONField(write_only=True)
