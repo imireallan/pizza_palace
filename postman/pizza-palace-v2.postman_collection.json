@@ -1,0 +1,11 @@
+{
+  "info": { "name": "Pizza Palace v2", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "item": [
+    { "name": "POST /orders/ (DRF)", "request": { "method": "POST", "url": { "raw": "http://localhost:8000/orders/", "protocol":"http","host":["localhost"],"port":"8000","path":["orders",""] }, "header":[{"key":"Content-Type","value":"application/json"}], "body":{"mode":"raw","raw":"{\"pizzas\":[{\"size\":\"Medium\",\"toppings\":[\"Cheese\"]}]}"} } },
+    { "name": "GET /orders/ (DRF)", "request": { "method":"GET","url":{"raw":"http://localhost:8000/orders/","protocol":"http","host":["localhost"],"port":"8000","path":["orders",""]}} },
+    { "name": "GET /orders/{id}/ receipt", "request": { "method":"GET","url":{"raw":"http://localhost:8000/orders/{id}/","protocol":"http","host":["localhost"],"port":"8000","path":["orders","{id}",""]}} },
+    { "name": "GET /pizzas/ (DRF)", "request": { "method":"GET","url":{"raw":"http://localhost:8000/pizzas/","protocol":"http","host":["localhost"],"port":"8000","path":["pizzas",""]}} },
+    { "name": "POST /api/billing/ (v2 CRUD)", "request": { "method":"POST","url":{"raw":"http://localhost:8000/api/billing/","protocol":"http","host":["localhost"],"port":"8000","path":["api","billing",""]},"header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"pizzas\":[{\"size\":\"Large\",\"toppings\":[\"Pepperoni\"]}]}"}} },
+    { "name": "GET /api/billing/?order_id=1 (v2 receipt)", "request": { "method":"GET","url":{"raw":"http://localhost:8000/api/billing/?order_id=1","protocol":"http","host":["localhost"],"port":"8000","path":["api","billing",""],"query":[{"key":"order_id","value":"1"}]}} }
+  ]
+}

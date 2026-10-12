@@ -1,0 +1,33 @@
+$kind: http-request
+method: POST
+url: '{{baseUrl}}/pizzas/'
+order: 2000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Accept
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Margherita",
+      "size": "Medium",
+      "toppings": ["Cheese", "Tomatoes"],
+      "price": 12.99
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201 Created", function () {
+        pm.response.to.have.status(201);
+      });
+      pm.test("Response has id", function () {
+        const body = pm.response.json();
+        pm.expect(body).to.have.property("id");
+      });
+      if (pm.response.code === 201) {
+        const body = pm.response.json();
+        pm.collectionVariables.set("pizzaId", body.id);
+      }

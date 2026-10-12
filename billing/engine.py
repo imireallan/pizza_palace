@@ -53,7 +53,7 @@ def receipt_text(order_items):
         subtotal += item["price"]
     tax = calculate_tax(subtotal)
     total = subtotal + tax
-    lines.append(f"Subtotal: {subtotal:.2f}")
-    lines.append(f"TAX (5%): {tax:.2f}")
-    lines.append(f"Total: {total:.2f}")
+    lines.append(f"Subtotal: KES {subtotal:.2f}")
+    lines.append(f"TAX: KES {tax:.2f}")
+    lines.append(f"Total: KES {total:.2f}")
     return "\n".join(lines)
