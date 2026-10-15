@@ -14,3 +14,4 @@ db.sqlite3
 
 
 .hermes/
+.DS_Store

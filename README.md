@@ -1,6 +1,6 @@
 # Pizza Palace — Billing System
 
-Billing-only system (no persistence). Records orders (pizza size + toppings) and generates itemized receipts with 5% tax (rounded up).
+Billing-only system with DB persistence (Django ORM / SQLite). Records orders (pizza size + toppings) and generates itemized receipts with 5% tax (rounded up).
 
 ## Setup
 
@@ -33,4 +33,4 @@ Branch: `main` (merged from `feature/billing` — PR #1 closed)
 - Size/topping selection, add/remove pizzas before submit
 - Validation (unknown size, unknown topping, at least one pizza)
 - Plain-text receipt (subtotal, 5% TAX rounded up, total)
-- In-memory billing (no persistence)
+- DB persistence (Django ORM / SQLite, DRF endpoints, receipt text stored)
