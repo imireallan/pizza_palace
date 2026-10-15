@@ -21,7 +21,6 @@ class OrderSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         ret = super().to_representation(instance)
         ret['receipt_text'] = instance.receipt_text or ret.get('receipt_text', '')
-        ret['receipt'] = instance.receipt_text or ret.get('receipt', '')
         return ret
 
 class OrderCreateSerializer(serializers.ModelSerializer):
