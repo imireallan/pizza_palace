@@ -4,7 +4,7 @@ SIZE_CHOICES = [("Small","Small"),("Medium","Medium"),("Large","Large")]
 
 class Topping(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    basic = models.BooleanField(default=True)
+
 
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)

@@ -12,7 +12,7 @@ class PizzaAdmin(admin.ModelAdmin):
 
 @admin.register(Topping)
 class ToppingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'basic')
+    list_display = ('id', 'name')
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):

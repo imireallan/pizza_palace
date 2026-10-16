@@ -39,6 +39,6 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         for p in pizzas_data:
             pizza = Pizza.objects.create(order=order, size=p.get('size', 'Medium'))
             for t in p.get('toppings', []):
-                topping_obj, _ = Topping.objects.get_or_create(name=t, defaults={"basic": t in {"Cheese","Pepperoni","Ham","Pineapple"}})
+                topping_obj, _ = Topping.objects.get_or_create(name=t)
                 OrderItem.objects.create(pizza=pizza, topping=topping_obj)
         return order
